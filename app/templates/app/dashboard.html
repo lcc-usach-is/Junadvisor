@@ -1,47 +1,80 @@
 {% extends 'app/main.html' %}
 
 {% block content %}
-
+{% load static %}
 <div class="container-fuild">
 
     <div class="row">
-        <div class="col-md-5">
-            <h5>CUSTOMERS:</h5>
-            <hr>
-            <div class="card card-body justify-content-evenly">
-                <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
-                <br>
-                <table class="table table-sm">
-                    <tr>
-                        <th>Customer</th>
-                        <th>Email</th>
-                    </tr>
+        <h5>MENUS</h5>
+        <hr>
+        <div class="d-flex justify-content-evenly flex-wrap">
 
-                    
-    
-                </table>
+            <div class="card menu">
+                <div class="card-header">
+                    <div class="d-flex flex-row">
+                        <h3>Titulo</h3>
+                        <h3 class="ms-auto bg-warning">$3120</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
+                </div>
+                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
             </div>
-        </div>
-    
-        <div class="col-md-7">
-            <h5>LAST 5 ORDERS</h5>
-            <hr>
-            <div class="card card-body overflow-auto max-h-250">
-                <table class="table table-sm">
-                    <tr>
-                        <th>Product</th>
-                        <th>Date Orderd</th>
-                        <th>Status</th>
-                        <th>Update</th>
-                        <th>Remove</th>
-                    </tr>
 
-                    
-            
-                </table>
+            <div class="card menu">
+                <div class="card-header">
+                    <div class="d-flex flex-row">
+                        <h3>Titulo</h3>
+                        <h3 class="ms-auto bg-warning">$3120</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
+                </div>
+                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
             </div>
+
+            <div class="card menu">
+                <div class="card-header">
+                    <div class="d-flex flex-row">
+                        <h3>Titulo</h3>
+                        <h3 class="ms-auto bg-warning">$3120</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
+                </div>
+                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
+            </div>
+
+            <div class="card menu">
+                <div class="card-header">
+                    <div class="d-flex flex-row">
+                        <h3>Titulo</h3>
+                        <h3 class="ms-auto bg-warning">$3120</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
+                </div>
+                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
+            </div>
+
+            <div class="card menu">
+                <div class="card-header">
+                    <div class="d-flex flex-row">
+                        <h3>Titulo</h3>
+                        <h3 class="ms-auto bg-warning">$3120</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
+                </div>
+                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
+            </div>
+
         </div>
-    
     </div>
 </div>
 

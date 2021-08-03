@@ -24,6 +24,7 @@ class Menu(models.Model):
     precio = models.PositiveIntegerField()
     descripcion = models.CharField(max_length=500, null=True)
     calificacion_media = models.FloatField(default=0)
+    menu_pic  = models.ImageField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
     categoria = models.ManyToManyField(Categoria)
