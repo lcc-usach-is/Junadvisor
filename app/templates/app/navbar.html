@@ -8,10 +8,10 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         {% if request.user.is_staff %}
         <li class="nav-item">
-          <a class="nav-link" href="">Home</a>
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Productos</a>
+          <a class="nav-link" href="{% url 'ingresar_menu' %}">Ingresar menu</a>
         </li>
         {% else %}
         <li class="nav-item">

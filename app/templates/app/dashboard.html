@@ -2,77 +2,14 @@
 
 {% block content %}
 {% load static %}
-<div class="container-fuild">
+<div class="container-fluid">
 
     <div class="row">
         <h5>MENUS</h5>
         <hr>
         <div class="d-flex justify-content-evenly flex-wrap">
 
-            <div class="card menu">
-                <div class="card-header">
-                    <div class="d-flex flex-row">
-                        <h3>Titulo</h3>
-                        <h3 class="ms-auto bg-warning">$3120</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
-                </div>
-                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
-            </div>
-
-            <div class="card menu">
-                <div class="card-header">
-                    <div class="d-flex flex-row">
-                        <h3>Titulo</h3>
-                        <h3 class="ms-auto bg-warning">$3120</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
-                </div>
-                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
-            </div>
-
-            <div class="card menu">
-                <div class="card-header">
-                    <div class="d-flex flex-row">
-                        <h3>Titulo</h3>
-                        <h3 class="ms-auto bg-warning">$3120</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
-                </div>
-                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
-            </div>
-
-            <div class="card menu">
-                <div class="card-header">
-                    <div class="d-flex flex-row">
-                        <h3>Titulo</h3>
-                        <h3 class="ms-auto bg-warning">$3120</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
-                </div>
-                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
-            </div>
-
-            <div class="card menu">
-                <div class="card-header">
-                    <div class="d-flex flex-row">
-                        <h3>Titulo</h3>
-                        <h3 class="ms-auto bg-warning">$3120</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                        <p>Descripcion algo asdfjskf slkdjfs  kdsf sl skdfj slfd slk fslkf dsldk flks flsdk fsdlkf sdlf </p>
-                </div>
-                <img src="{% static 'images/completo_italiano.jpg' %}" class="card-img-bottom" alt="...">
-            </div>
+        {% include 'app/menu_card.html' %}
 
         </div>
     </div>
