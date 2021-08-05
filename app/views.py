@@ -8,13 +8,16 @@ from .forms import *
 # Create your views here.
 
 def home(request):
-    return render(request, 'app/dashboard.html')
+    menus = Menu.objects.all()
+    context = {'menus': menus}
+
+    return render(request, 'app/dashboard.html', context)
 
 def ingresarMenu(request):
     form = MenuForm()
 
     if request.method == 'POST':
-        form = MenuForm(request.POST)
+        form = MenuForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')

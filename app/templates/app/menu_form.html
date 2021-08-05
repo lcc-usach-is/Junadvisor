@@ -6,7 +6,7 @@
     <div class="col-md-5">
         <div class="card card-body">
             <div class="form-group">
-                <form class="flex-column" action="" method="POST">
+                <form class="flex-column" action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{form.as_p}}
 
