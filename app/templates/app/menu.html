@@ -1,0 +1,36 @@
+{% extends 'app/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="card menu">
+        <div class="card-header">
+            <div class="d-flex flex-row">
+                <h3>{{menu.titulo}}</h3>
+                <h3 class="ms-auto bg-warning">${{menu.precio}}</h3>
+            </div>
+        </div>
+        <div class="card-body">
+                <p>{{menu.descripcion}}</p>
+        </div>
+        <img src="{{ menu.menu_pic.url }}" class="card-img-bottom" alt="...">
+    </div>
+
+    {% if request.user.is_authenticated and not request.user.is_staff %}  
+<div class="row">
+    <hr>  
+    {% include 'app/comentario_form.html' %}
+</div>
+{% endif %}
+
+    {% for comentario in comentarios %}
+    <hr>  
+    <div class="card">
+        <div class="d-flex flex-row">
+            <h3>{{comentario.estudiante.username}}</h3>
+            <h3 class="ms-auto bg-warning">{{comentario.calificacion}}</h3>
+        </div>
+        <p>{{comentario.contenido}}</p>
+    </div>
+    {% endfor %}
+
+{% endblock %}

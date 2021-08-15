@@ -1,0 +1,17 @@
+
+{% load static %}
+<div class="row justify-content-md-center">
+    <div class="col-md-8">
+        <div class="card card-body">
+            <h3>Ingresar comentario</h3>
+            <div class="form-group">
+                <form class="flex-column" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.as_p}}
+
+                    <input class="btn btn-sm btn-primary" type="submit" name="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
