@@ -4,7 +4,7 @@
 <div class="card menu">
     <div class="card-header">
         <div class="d-flex flex-row">
-            <h3><a href="{% url 'menu' menu.id %}">{{menu.titulo}}</a></h3>
+            <h3><a class="link-dark" href="{% url 'menu' menu.id %}">{{menu.titulo}}</a></h3>
             <h3 class="ms-auto bg-warning">${{menu.precio}}</h3>
         </div>
     </div>

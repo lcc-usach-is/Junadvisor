@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
+from django.db.models import Avg
 
 from .forms import *
 from .models import *
@@ -70,28 +71,110 @@ def logoutUser(request):
 
 ##### PAGES #####
 def home(request):
-    menus = Menu.objects.filter(is_active = True)
+    menus = Menu.objects.filter(comercio__is_active = True, is_active = True)
+
     context = {'menus': menus}
 
     return render(request, 'app/dashboard.html', context)
 
-def ingresarMenu(request):
+### ADMIN MENU ###
+def administrarMenu(request):
+    menus = Menu.objects.all()
+
+    context = {'menus': menus}
+
+    return render(request, 'app/admin_menu.html', context)
+
+def modificarMenu(request, pk):
+    menu = Menu.objects.get(id=pk)
+    form = MenuForm(instance=menu)
+
     if request.method == 'POST':
-        form = MenuForm(request.POST, request.FILES)
+        form = MenuForm(request.POST, request.FILES, instance=menu)
         if form.is_valid():
             form.save()
-            return redirect('/')
-    else:
-        form = MenuForm()
+            return redirect('/administrar_menu')
 
+    context = {'form': form, 'menu': menu}
+    return render(request, 'app/menu_form.html', context)
+
+def ingresarMenu(request):
+    if request.method == 'POST':
+        form = IngresarMenuForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/administrar_menu')
+    else:
+        form = IngresarMenuForm()
+    
     context = {'form': form}
     return render(request, 'app/menu_form.html', context)
 
-def vistaMenu(request, pk):
+def deshabilitarMenu(request, pk):
+    menu = Menu.objects.get(id=pk)
 
+    if request.method == "POST":
+        menu.is_active = False
+        menu.save()
+        return redirect('/administrar_menu')
+
+    context={'menu': menu}
+    return render(request, 'app/deshabilitar_menu.html', context)
+
+### ADMIN COMERCIO ###
+def administrarComercio(request):
+    comercios = Comercio.objects.all()
+
+    context = {'comercios': comercios}
+
+    return render(request, 'app/admin_comercio.html', context)
+
+def modificarComercio(request, pk):
+    comercio = Comercio.objects.get(id=pk)
+    form = ComercioForm(instance=comercio)
+
+    if request.method == 'POST':
+        form = ComercioForm(request.POST, instance=comercio)
+        if form.is_valid():
+            form.save()
+            return redirect('/administrar_comercio')
+
+    context = {'form': form, 'comercio': comercio}
+    return render(request, 'app/comercio_form.html', context)
+
+def ingresarComercio(request):
+    if request.method == 'POST':
+        form = IngresarComercioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/administrar_comercio')
+    else:
+        form = IngresarComercioForm()
+
+    context = {'form': form}
+    return render(request, 'app/comercio_form.html', context)
+
+def deshabilitarComercio(request, pk):
+    comercio = Comercio.objects.get(id=pk)
+
+    if request.method == "POST":
+        comercio.is_active = False
+        comercio.save()
+        return redirect('/administrar_comercio')
+
+    context={'comercio': comercio}
+    return render(request, 'app/deshabilitar_comercio.html', context)
+
+### VISTAS ###
+
+def vistaMenu(request, pk):
     form = ComentarioForm()
     menu = Menu.objects.get(id=pk)
     comentarios = menu.comentario_set.filter(is_active = True)
+
+    calificacion_media = comentarios.aggregate(Avg('calificacion'))
+    menu.calificacion_media = calificacion_media.get('calificacion__avg')
+    menu.save()
     
     if request.user.is_authenticated and not request.user.is_staff:
         estudiante = Estudiante.objects.get(user=request.user)
@@ -107,3 +190,11 @@ def vistaMenu(request, pk):
     context = { 'menu': menu, 'comentarios': comentarios, 'form': form}
 
     return render(request, "app/menu.html", context)
+
+def vistaComercio(request, pk):
+    comercio = Comercio.objects.get(id=pk)
+    menus = comercio.menu_set.filter(is_active = True)
+
+    context = { 'comercio': comercio, 'menus': menus}
+
+    return render(request, "app/comercio.html", context)

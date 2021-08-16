@@ -1,0 +1,37 @@
+{% extends 'app/main.html' %}
+
+{% block content %}
+<div class="w-100">
+    <h5>Lista de menus</h5>
+    <a class="btn btn-sm btn-primary" href="{% url 'ingresar_menu'%}">Ingresar menu</a>
+    <hr>
+    <div class="card card-body overflow-auto max-h-250">
+        <table class="table table-sm">
+            <tr>
+                <th>Titulo</th>
+                <th>Precio</th>
+                <th>Calificacion media</th>
+                <th>Comercio</th>
+                <th>Modificar</th>
+                <th>Estado</th>
+            </tr>
+
+            {% for menu in menus %}
+            <tr>
+                <td><a class="link-dark" href="{% url 'menu' menu.id %}">{{menu.titulo}}</a></td>   
+                <td>{{menu.precio}}</td>
+                <td>{{menu.calificacion_media}}</td>
+                <td><a class="link-dark" href="{% url 'comercio' menu.comercio.id %}">{{menu.comercio.nombre}}</a></td>
+                <td><a class="btn btn-sm btn-info" href="{% url 'modificar_menu' menu.id %}">Modificar</a></td>
+                {% if not menu.is_active %}
+                    <td><a class="btn btn-sm btn-danger" href="">Deshabilitado</a></td>
+                    {% else %}
+                    <td><a class="btn btn-sm btn-success" href="">Habilitado</a></td>
+                    {% endif %}
+            </tr>
+            {% endfor %}
+    
+        </table>
+    </div>
+</div>
+{% endblock %}

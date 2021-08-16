@@ -9,7 +9,23 @@ class MenuForm(ModelForm):
     class Meta:
         model = Menu
         fields = ('comercio', 'titulo', 'precio',
+         'descripcion', 'menu_pic', 'categoria', 'is_active')
+
+class IngresarMenuForm(ModelForm):
+    class Meta:
+        model = Menu
+        fields = ('comercio', 'titulo', 'precio',
          'descripcion', 'menu_pic', 'categoria')
+
+class ComercioForm(ModelForm):
+    class Meta:
+        model = Comercio
+        fields = ('nombre', 'descripcion', 'direccion', 'is_active')
+
+class IngresarComercioForm(ModelForm):
+    class Meta:
+        model = Comercio
+        fields = ('nombre', 'descripcion', 'direccion') 
 
 class ComentarioForm(ModelForm):
     class Meta:
