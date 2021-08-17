@@ -172,9 +172,10 @@ def vistaMenu(request, pk):
     menu = Menu.objects.get(id=pk)
     comentarios = menu.comentario_set.filter(is_active = True)
 
-    calificacion_media = comentarios.aggregate(Avg('calificacion'))
-    menu.calificacion_media = calificacion_media.get('calificacion__avg')
-    menu.save()
+    if comentarios:
+        calificacion_media = comentarios.aggregate(Avg('calificacion'))
+        menu.calificacion_media = round(calificacion_media.get('calificacion__avg'), 1)
+        menu.save()
     
     if request.user.is_authenticated and not request.user.is_staff:
         estudiante = Estudiante.objects.get(user=request.user)
