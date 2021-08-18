@@ -4,14 +4,18 @@
 <div class="card menu">
     <div class="card-header">
         <div class="d-flex flex-row">
-            <h3><a class="link-dark" href="{% url 'menu' menu.id %}">{{menu.titulo}}</a></h3>
+            <h3><a class="link-dark menu-title" href="{% url 'menu' menu.id %}">{{menu.titulo}}</a></h3>
             <h3 class="ms-auto bg-warning">${{menu.precio}}</h3>
         </div>
     </div>
     <div class="card-body">
             <p>{{menu.descripcion}}</p>
     </div>
+    {% if menu.menu_pic %}
     <img src="{{ menu.menu_pic.url }}" class="card-img-bottom" alt="...">
+    {% else %}
+    <p>No hay imagen</p>
+    {% endif %}
 </div>
 
 {% endfor %}

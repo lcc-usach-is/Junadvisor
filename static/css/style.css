@@ -24,6 +24,7 @@ main {
     min-height: 100%;
     margin-bottom: auto;
     border-radius: .25rem;
+    min-width: 300px;
 
     box-shadow: 10px 10px 15px #006657;
     background-color: var(--secondary-color);
@@ -32,7 +33,9 @@ main {
 }
 
 p {
-    font-size: 25px;
+    color: #212529;
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 img {
@@ -44,6 +47,7 @@ nav {
     background-color: var(--secondary-color);
     font-size: 1.5em;
 }
+
 
 footer {
     width: 100%;
@@ -66,19 +70,10 @@ footer {
 }
 
 .logo {
-    height: 70px;
-    z-index: 1030;
+        max-height: 66px;
+        max-width: 300px;
 }
 
-.logo-container {
-    height: inherit;
-}
-
-.logo-bg {
-    background-color: var(--primary-color);
-    height: inherit;
-    width: 100px;
-}
 
 .max-h-250 {
     max-height: 250px;
@@ -91,10 +86,6 @@ footer {
     border-left: solid;
     border-right: solid;
     border-color: white;
-}
-
-.navbar-brand {
-    position: absolute;
 }
 
 .flex-space-evenly {
@@ -116,13 +107,38 @@ h3 {
     padding: 10px;
     color: #212529;
     border-radius: .25rem;
+    max-height: fit-content;
 }
 
 .menu {
     max-width: 30%;
-    min-width: 250px;
+    min-width: 270px;
     margin: 30px 0px;
 }
+
+.menu-title{
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
 .block {
     margin: 0 10px;
+}
+
+.comentario {
+    color: aliceblue;
+    padding: .5rem;
+}
+
+.comentario-container {
+    width: max-content;
+
+}
+
+.profile-pic {
+    width: 113px;
+    height: 113px;
+    border-radius: 50%;
+    margin-right: 1em;
 }

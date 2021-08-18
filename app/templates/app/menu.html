@@ -12,7 +12,11 @@
         <div class="card-body">
                 <p>{{menu.descripcion}}</p>
         </div>
+        {% if menu.menu_pic %}
         <img src="{{ menu.menu_pic.url }}" class="card-img-bottom" alt="...">
+        {% else %}
+        <p>No hay imagen</p>
+        {% endif %}
     </div>
 
     {% if request.user.is_authenticated and not request.user.is_staff %}  
@@ -23,14 +27,20 @@
 {% endif %}
 
     {% for comentario in comentarios %}
-    <hr>  
-    <div class="card">
-        <div class="d-flex flex-row">
-            <h3>{{comentario.estudiante.username}}</h3>
-            <h3 class="ms-auto bg-warning">{{comentario.calificacion}}</h3>
+    <hr>
+    <div class="d-flex flex-start flex-wrap">
+        <img src="{{comentario.estudiante.profile_pic.url}}" class="profile-pic">
+        <div class="card flex-fill">
+            <div class="d-flex align-items-center flex-row">
+                <h3 class="menu-title">{{comentario.estudiante.first_name}} {{comentario.estudiante.last_name}}</h3>
+                {% if request.user.is_staff %}
+                <a class="btn btn-sm btn-danger" href="{% url 'deshabilitar_comentario' comentario.id %}">Deshabilitar</a>
+                {% endif %}
+                <h3 class="ms-auto bg-warning">{{comentario.calificacion}}</h3>
+            </div>
+            <p class="comentario">{{comentario.contenido}}</p>
         </div>
-        <p>{{comentario.contenido}}</p>
-    </div>
+    </div> 
     {% endfor %}
 
 {% endblock %}

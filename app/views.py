@@ -110,17 +110,6 @@ def ingresarMenu(request):
     context = {'form': form}
     return render(request, 'app/menu_form.html', context)
 
-def deshabilitarMenu(request, pk):
-    menu = Menu.objects.get(id=pk)
-
-    if request.method == "POST":
-        menu.is_active = False
-        menu.save()
-        return redirect('/administrar_menu')
-
-    context={'menu': menu}
-    return render(request, 'app/deshabilitar_menu.html', context)
-
 ### ADMIN COMERCIO ###
 def administrarComercio(request):
     comercios = Comercio.objects.all()
@@ -154,16 +143,16 @@ def ingresarComercio(request):
     context = {'form': form}
     return render(request, 'app/comercio_form.html', context)
 
-def deshabilitarComercio(request, pk):
-    comercio = Comercio.objects.get(id=pk)
+def deshabilitarComentario(request, pk):
+    comentario = Comentario.objects.get(id=pk)
 
     if request.method == "POST":
-        comercio.is_active = False
-        comercio.save()
-        return redirect('/administrar_comercio')
+        comentario.is_active = False
+        comentario.save()
+        return redirect('/')
 
-    context={'comercio': comercio}
-    return render(request, 'app/deshabilitar_comercio.html', context)
+    context={'comentario': comentario}
+    return render(request, 'app/deshabilitar_comentario.html', context)
 
 ### VISTAS ###
 

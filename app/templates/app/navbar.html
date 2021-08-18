@@ -1,7 +1,7 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg navbar-light">
-  
+<nav class="navbar navbar-expand-lg navbar-light p-0">
+  <img src="{% static 'images/logo.png' %}" alt="" class="logo">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,7 +21,7 @@
             <li><a class="dropdown-item" href="{% url 'administrar_comercio' %}">Administrar comercios</a></li>
           </ul>
         </li>
-        {% else %}
+        {% elif request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="">Editar Perfil</a>
         </li>
@@ -41,7 +41,7 @@
   <span class="block">Hola, {{request.user}}</span>
   <span class="block"><a class="btn btn-dark" href="{% url 'logout' %}">Cerrar Sesion</a></span>
   {% else %}
-  <span class="block"><a href="{% url 'login' %}">Iniciar Sesion</a></span>
+  <span class="block"><a class="btn btn-dark" href="{% url 'login' %}">Iniciar Sesion</a></span>
   {% endif %}
 
 </nav>
