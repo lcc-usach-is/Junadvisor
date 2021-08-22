@@ -13,6 +13,7 @@ from django.db.models import Avg
 
 from .forms import *
 from .models import *
+from .filters import *
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
@@ -180,6 +181,21 @@ def vistaMenu(request, pk):
     context = { 'menu': menu, 'comentarios': comentarios, 'form': form}
 
     return render(request, "app/menu.html", context)
+
+def buscarMenu(request):
+    menus = Menu.objects.filter(comercio__is_active = True, is_active = True)
+    searched = ""
+
+    if request.method == "POST":
+        searched = request.POST['searched']
+        menus = menus.filter(titulo__icontains = searched)
+
+    myFilter = MenuFilter(request.GET, queryset=menus)
+    menus = myFilter.qs
+
+    context = {'menus': menus, 'myFilter': myFilter, 'searched': searched}
+
+    return render(request, 'app/buscar_menu.html', context)
 
 def vistaComercio(request, pk):
     comercio = Comercio.objects.get(id=pk)
