@@ -2,12 +2,13 @@
 
 {% block content %}
 {% load static %}
-<h5>MENUS</h5>
+<h5>Resultados de la busqueda</h5>
 <hr>
 <div class="d-flex flex-row">
     
+    {% if option == "menu" %}
+
     <div class="d-flex flex-column">
-        
             <div class="col mw-280">
                 <div class="card card-body">
                     <form method="get">
@@ -27,6 +28,32 @@
         {% include 'app/menu_card.html' %}
         {% endif %}    
         </div>
+    
+    {% else %}
+
+    {% if not comercios %}
+    <p>No se encontraron comercios</p>
+    {% else %}
+    <div class="card card-body overflow-auto max-h-250">
+        <table class="table table-sm">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Direccion</th>
+            </tr>
+
+            {% for comercio in comercios %}
+            <tr>
+                <td><a class="link-dark" href="{% url 'comercio' comercio.id %}">{{comercio.nombre}}</a></td>   
+                <td>{{comercio.descripcion}}</td>
+                <td>{{comercio.direccion}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}    
+
+    {% endif %}
 </div>
 
 {% endblock %}

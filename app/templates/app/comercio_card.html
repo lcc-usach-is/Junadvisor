@@ -1,0 +1,15 @@
+{% load static %}
+
+{% for comercio in comercios %}
+<div class="card menu">
+    <div class="card-header">
+        <div class="d-flex flex-row align-items-center">
+            <h3><a class="link-dark menu-title" href="{% url 'comercio' comercio.id %}">{{comercio.nombre}}</a></h3>
+        </div>
+    </div>
+    <div class="card-body">
+            <p>{{comercio.descripcion}}</p>
+    </div>
+</div>
+
+{% endfor %}

@@ -146,3 +146,9 @@ h3 {
 .mw-280 {
     max-width: 280px;
 }
+
+.text-area {
+    width: 500px;
+    height: 84px;
+    margin-bottom: 1rem;
+}

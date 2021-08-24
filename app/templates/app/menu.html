@@ -19,17 +19,28 @@
         {% endif %}
     </div>
 
-    {% if request.user.is_authenticated and not request.user.is_staff %}  
-<div class="row">
-    <hr>  
+    {% if comento %}
+        <div class="card card-body">
+            <h3>Ya comentaste este menu</h3>
+        </div>
+    {% else %}
+    {% if request.user.is_authenticated and not request.user.is_staff%}  
+        <div class="row">
+        <hr>  
     {% include 'app/comentario_form.html' %}
-</div>
-{% endif %}
+        </div>
+
+    {% endif %}
+    {% endif %}
 
     {% for comentario in comentarios %}
     <hr>
     <div class="d-flex flex-start flex-wrap">
+        {% if comentario.estudiante.profile_pic %}
         <img src="{{comentario.estudiante.profile_pic.url}}" class="profile-pic">
+        {% else %}
+        <img src="{% static 'images/default-profile-pic.png' %}" class="profile-pic">
+        {% endif %}
         <div class="card flex-fill">
             <div class="d-flex align-items-center flex-row">
                 <h3 class="menu-title">{{comentario.estudiante.first_name}} {{comentario.estudiante.last_name}}</h3>

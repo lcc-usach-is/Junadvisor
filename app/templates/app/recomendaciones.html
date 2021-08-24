@@ -1,0 +1,24 @@
+{% extends 'app/main.html' %}
+{% load static %}
+{% block content %}
+<div class="w-100">
+    <h5>Recomendaciones</h5>
+    <hr>
+    {% for recomendacion in recomendaciones %}
+    <hr>
+    <div class="d-flex flex-start flex-wrap">
+        {% if recomendacion.estudiante.profile_pic %}
+        <img src="{{recomendacion.estudiante.profile_pic.url}}" class="profile-pic">
+        {% else %}
+        <img src="{% static 'images/default-profile-pic.png' %}" class="profile-pic">
+        {% endif %}
+        <div class="card flex-fill">
+            <div class="d-flex align-items-center flex-row">
+                <h3 class="menu-title">{{recomendacion.estudiante.first_name}} {{recomendacion.estudiante.last_name}}</h3>
+            </div>
+            <h1>{{recomendacion.nombre}}</h1>
+            <p class="comentario">{{recomendacion.contenido}}</p>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

@@ -19,30 +19,36 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'administrar_menu' %}">Administrar menus</a></li>
             <li><a class="dropdown-item" href="{% url 'administrar_comercio' %}">Administrar comercios</a></li>
+            <li><a class="dropdown-item" href="{% url 'recomendaciones' %}">Ver recomendaciones</a></li>
           </ul>
         </li>
         {% elif request.user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="">Editar Perfil</a>
+          <a class="nav-link" href="{% url 'modificar_perfil' %}">Modificar Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'recomendar_menu_comercio' %}">Recomendar menu o comercio</a>
         </li>
         {% endif %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'buscar_menu' %}">Buscar menu</a>
-        </li>
       </ul>
-
       
-      
-      <form class="d-flex" method="POST" action="{% url 'buscar_menu' %}">
-        {% csrf_token %}
-        <input class="form-control me-2" name="searched" type="search" placeholder="Buscar menu" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+        <form class="d-flex align-items-center" method="POST" action="{% url 'buscar_menu' %}">
+          {% csrf_token %}
+            <input type="radio"  id="menu" name="option" value="menu" required>
+            <label for="menu" class="form-check-label">Menu</label><br>
+            <input type="radio"  id="comercio" name="option" value="comercio">
+            <label for="Comercio" class="form-check-label" >Comercio </label><br>
+          <input class="form-control me-2" name="searched" type="search" placeholder="Buscar menu" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
     </div>
   </div>
   
+  {% if request.user.is_authenticated and not request.user.is_staff %}
+  <span class="block">Hola, {{request.user.estudiante.first_name}}</span>
+  {% endif %}
+
   {% if request.user.is_authenticated %}
-  <span class="block">Hola, {{request.user}}</span>
   <span class="block"><a class="btn btn-dark" href="{% url 'logout' %}">Cerrar Sesion</a></span>
   {% else %}
   <span class="block"><a class="btn btn-dark" href="{% url 'login' %}">Iniciar Sesion</a></span>

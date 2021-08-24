@@ -1,0 +1,45 @@
+{%  extends 'app/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+	.profile-pic{
+		width: 200px;
+		height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<br>
+<div class="row">
+	<div class="col-md-3">
+		<div class="card card-body">
+            <!--&#8592; arrow symbol-->
+			<a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Atras</a>
+			<hr>
+			<h3 style="text-align: center">Modificar Perfil</h3>
+			<hr>
+            {% if request.user.estudiante.profile_pic %}
+			<img class="profile-pic" src="{{request.user.estudiante.profile_pic.url}}">
+            {% else %}
+            <h3>No hay foto de perfil</h3>
+            {% endif %}
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="card card-body">
+			
+			<form method="POST" action="" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form.as_p}}
+		
+			<input class="btn btn-primary" type="submit" name="Update Information">
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

@@ -3,7 +3,7 @@
 {% for menu in menus %}
 <div class="card menu">
     <div class="card-header">
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row align-items-center">
             <h3><a class="link-dark menu-title" href="{% url 'menu' menu.id %}">{{menu.titulo}}</a></h3>
             <h3 class="ms-auto bg-warning">${{menu.precio}}</h3>
         </div>

@@ -4,7 +4,6 @@ from django.contrib import auth
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.forms import inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -69,6 +68,20 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('login')
+
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['estudiante'])
+def modificarPerfil(request):
+    estudiante = request.user.estudiante
+    form = EstudianteForm(instance=estudiante)
+
+    if request.method == 'POST':
+        form = EstudianteForm(request.POST, request.FILES, instance=estudiante)
+        if form.is_valid():
+            form.save()
+            
+    context = {'form': form}
+    return render(request, 'app/modificar_perfil.html', context)
 
 ##### PAGES #####
 def home(request):
@@ -155,12 +168,11 @@ def deshabilitarComentario(request, pk):
     context={'comentario': comentario}
     return render(request, 'app/deshabilitar_comentario.html', context)
 
-### VISTAS ###
-
 def vistaMenu(request, pk):
     form = ComentarioForm()
     menu = Menu.objects.get(id=pk)
     comentarios = menu.comentario_set.filter(is_active = True)
+    comento = False
 
     if comentarios:
         calificacion_media = comentarios.aggregate(Avg('calificacion'))
@@ -169,31 +181,42 @@ def vistaMenu(request, pk):
     
     if request.user.is_authenticated and not request.user.is_staff:
         estudiante = Estudiante.objects.get(user=request.user)
+        comento = comentarios.filter(estudiante__id = estudiante.id)
 
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
         if form.is_valid():
-            form.instance.estudiante = estudiante
-            form.instance.menu = menu
-            form.save()
+            contenido = form.cleaned_data['contenido']
+            calificacion = form.cleaned_data['calificacion']
+            comentario = Comentario(estudiante=estudiante, menu=menu, contenido=contenido, calificacion=calificacion)
+            comentario.save()
             return redirect('/menu/' + pk)
 
-    context = { 'menu': menu, 'comentarios': comentarios, 'form': form}
+    context = { 'menu': menu, 'comentarios': comentarios, 'form': form, 'comento': comento}
 
     return render(request, "app/menu.html", context)
 
 def buscarMenu(request):
-    menus = Menu.objects.filter(comercio__is_active = True, is_active = True)
+    comercios = False
+    menus = False
+    myFilter = False
+    option = "menu"
     searched = ""
 
     if request.method == "POST":
         searched = request.POST['searched']
+        option = request.POST["option"]
+
+    if option == "menu":
+        menus = Menu.objects.filter(comercio__is_active = True, is_active = True)
         menus = menus.filter(titulo__icontains = searched)
+        myFilter = MenuFilter(request.GET, queryset=menus)
+        menus = myFilter.qs
+    else:
+        comercios = Comercio.objects.filter(is_active=True)
+        comercios = comercios.filter(nombre__icontains = searched)
 
-    myFilter = MenuFilter(request.GET, queryset=menus)
-    menus = myFilter.qs
-
-    context = {'menus': menus, 'myFilter': myFilter, 'searched': searched}
+    context = {'menus': menus, 'comercios': comercios, 'myFilter': myFilter, 'option': option}
 
     return render(request, 'app/buscar_menu.html', context)
 
@@ -204,3 +227,24 @@ def vistaComercio(request, pk):
     context = { 'comercio': comercio, 'menus': menus}
 
     return render(request, "app/comercio.html", context)
+
+def ingresarRecomendacion(request):
+    if request.method == 'POST':
+        form = IngresarRecomendacionForm(request.POST)
+        if form.is_valid():
+            form.instance.estudiante = Estudiante.objects.get(user=request.user)
+            form.instance.contenido = form.cleaned_data['contenido']
+            form.save()
+            return redirect('/')
+    else:
+        form = IngresarRecomendacionForm()
+
+    context = {'form': form}
+    return render(request, 'app/comercio_form.html', context)
+
+def vistaRecomendaciones(request):
+    recomendaciones = Recomendacion.objects.all()
+
+    context = {'recomendaciones': recomendaciones}
+
+    return render(request, 'app/recomendaciones.html', context)

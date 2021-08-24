@@ -10,6 +10,9 @@ urlpatterns = [
     path('menu/<str:pk>', views.vistaMenu, name="menu"),
     path('comercio/<str:pk>', views.vistaComercio, name="comercio"),
 
+    path('modificar_perfil/', views.modificarPerfil, name="modificar_perfil"),
+    path('recomendar_menu_comercio', views.ingresarRecomendacion, name="recomendar_menu_comercio"),
+
     path('administrar_menu/', views.administrarMenu, name="administrar_menu"),
     path('ingresar_menu/', views.ingresarMenu, name="ingresar_menu"),
     path('modificar_menu/<str:pk>', views.modificarMenu, name="modificar_menu"),
@@ -18,6 +21,8 @@ urlpatterns = [
     path('administrar_comercio/', views.administrarComercio, name="administrar_comercio"),
     path('ingresar_comercio/', views.ingresarComercio, name="ingresar_comercio"),
     path('modificar_comercio/<str:pk>', views.modificarComercio, name="modificar_comercio"),
+
+    path('recomendaciones/', views.vistaRecomendaciones, name="recomendaciones"),
     
     path('deshabilitar_comentario/<str:pk>', views.deshabilitarComentario, name="deshabilitar_comentario"),
 ]
