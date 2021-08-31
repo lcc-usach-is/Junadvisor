@@ -7,7 +7,18 @@
     <div class="row">
         <h5>MENUS</h5>
         <hr>
-        <div class="d-flex justify-content-evenly flex-wrap">
+        <form class="d-flex align-items-center col-md-4 mb-3" method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <select name="order" id="order_id" class="form-select">
+                <option selected>Ordenar por</option>
+                <option value="precio-mayor">Precio mayor a menor</option>
+                <option value="calificacion-mayor">Calificacion mayor a menor</option>
+            </select>
+            <button class="btn btn-success ms-3" type="submit">Ordenar</button>
+        </form>
+        <hr>
+        <div class="d-flex justify-content-evenly flex-wrap align-items-start">
+        
 
         {% include 'app/menu_card.html' %}
 

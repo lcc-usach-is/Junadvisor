@@ -67,5 +67,11 @@ class IngresarRecomendacionForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(IngresarRecomendacionForm, self).__init__(*args, **kwargs)
         self.fields['contenido'].widget.attrs['rows'] = 3
+
+class OrderMenuForm(forms.Form):
+    CHOICES = [('1', 'First'), ('2', 'Second')]
+    order = forms.ChoiceField(choices=CHOICES)
     
+    def __init__(self, *args, **kwargs):
+        super(OrderMenuForm, self).__init__(*args, **kwargs)
     

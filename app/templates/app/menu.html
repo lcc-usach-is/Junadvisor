@@ -2,26 +2,11 @@
 {% load static %}
 {% block content %}
 
-    <div class="card menu">
-        <div class="card-header">
-            <div class="d-flex flex-row">
-                <h3>{{menu.titulo}}</h3>
-                <h3 class="ms-auto bg-warning">${{menu.precio}}</h3>
-            </div>
-        </div>
-        <div class="card-body">
-                <p>{{menu.descripcion}}</p>
-        </div>
-        {% if menu.menu_pic %}
-        <img src="{{ menu.menu_pic.url }}" class="card-img-bottom" alt="...">
-        {% else %}
-        <p>No hay imagen</p>
-        {% endif %}
-    </div>
+    {% include 'app/menu_card_l.html' %}
 
     {% if comento %}
-        <div class="card card-body">
-            <h3>Ya comentaste este menu</h3>
+        <div class="d-flex justify-content-evenly">
+            <h5 class="bg-danger">Ya comentaste este menu</h3>
         </div>
     {% else %}
     {% if request.user.is_authenticated and not request.user.is_staff%}  
@@ -42,14 +27,14 @@
         <img src="{% static 'images/default-profile-pic.png' %}" class="profile-pic">
         {% endif %}
         <div class="card flex-fill">
-            <div class="d-flex align-items-center flex-row">
-                <h3 class="menu-title">{{comentario.estudiante.first_name}} {{comentario.estudiante.last_name}}</h3>
+            <div class="d-flex align-items-center flex-row p-2">
+                <h5 class="card-title p-2">{{comentario.estudiante.first_name}} {{comentario.estudiante.last_name}}</h5>
                 {% if request.user.is_staff %}
                 <a class="btn btn-sm btn-danger" href="{% url 'deshabilitar_comentario' comentario.id %}">Deshabilitar</a>
                 {% endif %}
                 <h3 class="ms-auto bg-warning">{{comentario.calificacion}}</h3>
             </div>
-            <p class="comentario">{{comentario.contenido}}</p>
+            <p class="comentario p-2">{{comentario.contenido}}</p>
         </div>
     </div> 
     {% endfor %}

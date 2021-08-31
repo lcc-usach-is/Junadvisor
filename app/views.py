@@ -86,7 +86,17 @@ def modificarPerfil(request):
 ##### PAGES #####
 def home(request):
     menus = Menu.objects.filter(comercio__is_active = True, is_active = True)
+    order = ""
 
+    if request.method == 'POST':
+        order = request.POST['order']
+    
+    if order == "precio-mayor":
+        menus = menus.order_by('-precio')
+    elif order == "calificacion-mayor":
+        menus = menus.order_by('-calificacion_media')
+
+    
     context = {'menus': menus}
 
     return render(request, 'app/dashboard.html', context)
@@ -240,7 +250,7 @@ def ingresarRecomendacion(request):
         form = IngresarRecomendacionForm()
 
     context = {'form': form}
-    return render(request, 'app/comercio_form.html', context)
+    return render(request, 'app/recomendar_menu_comercio.html', context)
 
 def vistaRecomendaciones(request):
     recomendaciones = Recomendacion.objects.all()

@@ -1,0 +1,26 @@
+{% load static %}
+
+
+
+<div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-5">
+        <img src="{{ menu.menu_pic.url }}" class="card-img" alt="...">
+      </div>
+      <div class="d-flex col">
+        <div class="card-body">
+            <div class="d-flex flex-row align-items-center">
+                <h5 class="card-title menu-title">{{menu.titulo}}</h5>
+                <h3 class="ms-auto bg-warning">${{menu.precio}}</h3>
+                <h3 class="ms-3 bg-warning">{{menu.calificacion_media}}</h3>
+            </div>
+            <p class="card-text" style="margin-bottom: 1em;">{{menu.descripcion}}</p>
+            <p class="bottom">
+            {% for categoria in menu.categoria.all %}
+            <small class="btn-sm btn-success">{{categoria}}</small>
+            {% endfor %}
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
