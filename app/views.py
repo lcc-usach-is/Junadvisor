@@ -102,14 +102,14 @@ def home(request):
     return render(request, 'app/dashboard.html', context)
 
 ### ADMIN MENU ###
-def administrarMenu(request):
+def administrarMenu(request): # Clase ControladorAdministrarMenu
     menus = Menu.objects.all()
 
     context = {'menus': menus}
 
     return render(request, 'app/admin_menu.html', context)
 
-def modificarMenu(request, pk):
+def modificarMenu(request, pk): # Clase ControladorModificarMenu.
     menu = Menu.objects.get(id=pk)
     form = MenuForm(instance=menu)
 
@@ -122,7 +122,7 @@ def modificarMenu(request, pk):
     context = {'form': form, 'menu': menu}
     return render(request, 'app/menu_form.html', context)
 
-def ingresarMenu(request):
+def ingresarMenu(request): #  Clase ControladorIngresarMenu
     if request.method == 'POST':
         form = IngresarMenuForm(request.POST, request.FILES)
         if form.is_valid():
@@ -135,14 +135,14 @@ def ingresarMenu(request):
     return render(request, 'app/menu_form.html', context)
 
 ### ADMIN COMERCIO ###
-def administrarComercio(request):
+def administrarComercio(request): # Clase ControladorAdministrarComercio.
     comercios = Comercio.objects.all()
 
     context = {'comercios': comercios}
 
     return render(request, 'app/admin_comercio.html', context)
 
-def modificarComercio(request, pk):
+def modificarComercio(request, pk): # Clase ControladorModificarComercio
     comercio = Comercio.objects.get(id=pk)
     form = ComercioForm(instance=comercio)
 
@@ -155,7 +155,7 @@ def modificarComercio(request, pk):
     context = {'form': form, 'comercio': comercio}
     return render(request, 'app/comercio_form.html', context)
 
-def ingresarComercio(request):
+def ingresarComercio(request): # Clase ControladorIngresarComercio
     if request.method == 'POST':
         form = IngresarComercioForm(request.POST)
         if form.is_valid():
@@ -167,7 +167,7 @@ def ingresarComercio(request):
     context = {'form': form}
     return render(request, 'app/comercio_form.html', context)
 
-def deshabilitarComentario(request, pk):
+def deshabilitarComentario(request, pk): # Clase ControladorDesactivarComentario
     comentario = Comentario.objects.get(id=pk)
 
     if request.method == "POST":
@@ -178,7 +178,7 @@ def deshabilitarComentario(request, pk):
     context={'comentario': comentario}
     return render(request, 'app/deshabilitar_comentario.html', context)
 
-def vistaMenu(request, pk):
+def vistaMenu(request, pk): # Dentro de esta funcion esta implicitamente la Clase ControladorIngresarComentario
     form = ComentarioForm()
     menu = Menu.objects.get(id=pk)
     comentarios = menu.comentario_set.filter(is_active = True)
@@ -193,7 +193,7 @@ def vistaMenu(request, pk):
         estudiante = Estudiante.objects.get(user=request.user)
         comento = comentarios.filter(estudiante__id = estudiante.id)
 
-    if request.method == 'POST':
+    if request.method == 'POST': # Cuando se ingresa un comentario, se envia el formulario desde la vosta y se recibe en esta parte controlador
         form = ComentarioForm(request.POST)
         if form.is_valid():
             contenido = form.cleaned_data['contenido']
@@ -220,7 +220,7 @@ def buscarMenu(request):
     if option == "menu":
         menus = Menu.objects.filter(comercio__is_active = True, is_active = True)
         menus = menus.filter(titulo__icontains = searched)
-        myFilter = MenuFilter(request.GET, queryset=menus)
+        myFilter = MenuFilter(request.GET, queryset=menus) # Clase ControladorFiltrarBMenu
         menus = myFilter.qs
     else:
         comercios = Comercio.objects.filter(is_active=True)
@@ -238,7 +238,7 @@ def vistaComercio(request, pk):
 
     return render(request, "app/comercio.html", context)
 
-def ingresarRecomendacion(request):
+def ingresarRecomendacion(request): # Clase ControladorRecomendarMenuComercio
     if request.method == 'POST':
         form = IngresarRecomendacionForm(request.POST)
         if form.is_valid():
