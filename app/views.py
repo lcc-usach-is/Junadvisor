@@ -102,6 +102,8 @@ def home(request):
     return render(request, 'app/dashboard.html', context)
 
 ### ADMIN MENU ###
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def administrarMenu(request): # Clase ControladorAdministrarMenu
     menus = Menu.objects.all()
 
@@ -109,6 +111,8 @@ def administrarMenu(request): # Clase ControladorAdministrarMenu
 
     return render(request, 'app/admin_menu.html', context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def modificarMenu(request, pk): # Clase ControladorModificarMenu.
     menu = Menu.objects.get(id=pk)
     form = MenuForm(instance=menu)
@@ -122,11 +126,14 @@ def modificarMenu(request, pk): # Clase ControladorModificarMenu.
     context = {'form': form, 'menu': menu}
     return render(request, 'app/menu_form.html', context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def ingresarMenu(request): #  Clase ControladorIngresarMenu
     if request.method == 'POST':
         form = IngresarMenuForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Menu ingresado correctamente')
             return redirect('/administrar_menu')
     else:
         form = IngresarMenuForm()
@@ -135,6 +142,8 @@ def ingresarMenu(request): #  Clase ControladorIngresarMenu
     return render(request, 'app/menu_form.html', context)
 
 ### ADMIN COMERCIO ###
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def administrarComercio(request): # Clase ControladorAdministrarComercio.
     comercios = Comercio.objects.all()
 
@@ -142,6 +151,8 @@ def administrarComercio(request): # Clase ControladorAdministrarComercio.
 
     return render(request, 'app/admin_comercio.html', context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def modificarComercio(request, pk): # Clase ControladorModificarComercio
     comercio = Comercio.objects.get(id=pk)
     form = ComercioForm(instance=comercio)
@@ -155,6 +166,8 @@ def modificarComercio(request, pk): # Clase ControladorModificarComercio
     context = {'form': form, 'comercio': comercio}
     return render(request, 'app/comercio_form.html', context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def ingresarComercio(request): # Clase ControladorIngresarComercio
     if request.method == 'POST':
         form = IngresarComercioForm(request.POST)
@@ -167,6 +180,8 @@ def ingresarComercio(request): # Clase ControladorIngresarComercio
     context = {'form': form}
     return render(request, 'app/comercio_form.html', context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def deshabilitarComentario(request, pk): # Clase ControladorDesactivarComentario
     comentario = Comentario.objects.get(id=pk)
 
@@ -177,6 +192,7 @@ def deshabilitarComentario(request, pk): # Clase ControladorDesactivarComentario
 
     context={'comentario': comentario}
     return render(request, 'app/deshabilitar_comentario.html', context)
+
 
 def vistaMenu(request, pk): # Dentro de esta funcion esta implicitamente la Clase ControladorIngresarComentario
     form = ComentarioForm()
@@ -193,7 +209,7 @@ def vistaMenu(request, pk): # Dentro de esta funcion esta implicitamente la Clas
         estudiante = Estudiante.objects.get(user=request.user)
         comento = comentarios.filter(estudiante__id = estudiante.id)
 
-    if request.method == 'POST': # Cuando se ingresa un comentario, se envia el formulario desde la vosta y se recibe en esta parte controlador
+    if request.method == 'POST': # Cuando se ingresa un comentario, se envia el formulario desde la vista y se recibe en esta parte controlador
         form = ComentarioForm(request.POST)
         if form.is_valid():
             contenido = form.cleaned_data['contenido']
@@ -238,6 +254,8 @@ def vistaComercio(request, pk):
 
     return render(request, "app/comercio.html", context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['estudiante'])
 def ingresarRecomendacion(request): # Clase ControladorRecomendarMenuComercio
     if request.method == 'POST':
         form = IngresarRecomendacionForm(request.POST)
@@ -252,6 +270,8 @@ def ingresarRecomendacion(request): # Clase ControladorRecomendarMenuComercio
     context = {'form': form}
     return render(request, 'app/recomendar_menu_comercio.html', context)
 
+@login_required(login_url = 'login')
+@allowed_users(allowed_roles=['admin'])
 def vistaRecomendaciones(request):
     recomendaciones = Recomendacion.objects.all()
 

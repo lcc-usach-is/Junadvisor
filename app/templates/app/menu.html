@@ -9,13 +9,17 @@
             <h5 class="bg-danger">Ya comentaste este menu</h3>
         </div>
     {% else %}
-    {% if request.user.is_authenticated and not request.user.is_staff%}  
-        <div class="row">
-        <hr>  
-    {% include 'app/comentario_form.html' %}
-        </div>
+        {% if not request.user.is_authenticated %}
+            <div class="d-flex justify-content-evenly">
+                <h5 class="bg-danger">Necesitas iniciar sesion como estudiante para comentar</h3>
+            </div>
+        {% elif request.user.is_authenticated and not request.user.is_staff%}  
+            <div class="row">
+            <hr>  
+        {% include 'app/comentario_form.html' %}
+            </div>
 
-    {% endif %}
+        {% endif %}
     {% endif %}
 
     {% for comentario in comentarios %}

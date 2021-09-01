@@ -5,7 +5,11 @@
 <div class="card mb-3">
     <div class="row no-gutters">
       <div class="col-md-5">
+        {% if menu.menu_pic %}
         <img src="{{ menu.menu_pic.url }}" class="card-img" alt="...">
+        {% else %}
+        <p>No hay imagen</p>
+        {% endif %}
       </div>
       <div class="d-flex col">
         <div class="card-body">

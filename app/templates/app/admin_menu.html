@@ -5,6 +5,10 @@
     <h5>Lista de menus</h5>
     <a class="btn btn-primary" href="{% url 'ingresar_menu'%}">Ingresar menu</a>
     <hr>
+    {% for message in messages %}
+		<p class="btn bg-info">{{message}}</p>
+        <hr>
+	{% endfor %}
     <div class="card card-body overflow-auto">
         <table class="table table-sm">
             <tr>
