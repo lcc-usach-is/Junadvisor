@@ -3,7 +3,11 @@
 {% block content %}
 
     {% include 'app/menu_card_l.html' %}
-
+    <hr>
+    <div class="d-flex justify-content-evenly">
+        <h5 class="bg-warning text-dark">Por favor, lee nuestras <a class="link-dark" target="_blank" href="https://raw.githubusercontent.com/lcc-usach-is/junadvisor/main/community-norms.txt">normas de la comunidad</a> antes de comentar</h5>
+    </div>
+    <hr>
     {% if comento %}
         <div class="d-flex justify-content-evenly">
             <h5 class="bg-danger">Ya comentaste este menu</h3>
@@ -11,7 +15,7 @@
     {% else %}
         {% if not request.user.is_authenticated %}
             <div class="d-flex justify-content-evenly">
-                <h5 class="bg-danger">Necesitas iniciar sesion como estudiante para comentar</h3>
+                <h5 class="bg-danger">Necesitas iniciar sesion como estudiante para comentar</h5>
             </div>
         {% elif request.user.is_authenticated and not request.user.is_staff%}  
             <div class="row">

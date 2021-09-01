@@ -121,6 +121,7 @@ def modificarMenu(request, pk): # Clase ControladorModificarMenu.
         form = MenuForm(request.POST, request.FILES, instance=menu)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Menu modificado correctamente')
             return redirect('/administrar_menu')
 
     context = {'form': form, 'menu': menu}
@@ -161,6 +162,7 @@ def modificarComercio(request, pk): # Clase ControladorModificarComercio
         form = ComercioForm(request.POST, instance=comercio)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Comercio modificado correctamente')
             return redirect('/administrar_comercio')
 
     context = {'form': form, 'comercio': comercio}
@@ -173,6 +175,7 @@ def ingresarComercio(request): # Clase ControladorIngresarComercio
         form = IngresarComercioForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Comercio ingresado correctamente')
             return redirect('/administrar_comercio')
     else:
         form = IngresarComercioForm()
