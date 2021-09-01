@@ -30,13 +30,13 @@
             <div class="d-flex align-items-center flex-row p-2">
                 <h5 class="card-title p-2">{{comentario.estudiante.first_name}} {{comentario.estudiante.last_name}}</h5>
                 {% if request.user.is_staff %}
-                <a class="btn btn-sm btn-danger" href="{% url 'deshabilitar_comentario' comentario.id %}">Deshabilitar</a>
+                <a class="btn btn-sm btn-danger ms-2" href="{% url 'deshabilitar_comentario' comentario.id %}">Deshabilitar</a>
                 {% endif %}
                 <h3 class="ms-auto bg-warning">{{comentario.calificacion}}</h3>
             </div>
             <p class="comentario p-2">{{comentario.contenido}}</p>
         </div>
-    </div> 
+    </div>
     {% endfor %}
 
 {% endblock %}

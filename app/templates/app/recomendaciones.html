@@ -12,12 +12,12 @@
         {% else %}
         <img src="{% static 'images/default-profile-pic.png' %}" class="profile-pic">
         {% endif %}
-        <div class="card flex-fill">
+        <div class="card flex-fill p-2">
             <div class="d-flex align-items-center flex-row">
-                <h3 class="menu-title">{{recomendacion.estudiante.first_name}} {{recomendacion.estudiante.last_name}}</h3>
+                <h5 class="card-title p-2">{{recomendacion.estudiante.first_name}} {{recomendacion.estudiante.last_name}}</h3>
             </div>
             <h1>{{recomendacion.nombre}}</h1>
-            <p class="comentario">{{recomendacion.contenido}}</p>
+            <p class="comentario p-2">{{recomendacion.contenido}}</p>
         </div>
     </div>
     {% endfor %}

@@ -50,7 +50,7 @@ class EstudianteForm(ModelForm):
     class Meta:
         model = Estudiante
         fields = '__all__'
-        exclude = ['user']
+        exclude = ['user', 'username']
 
 class CreateUserForm(UserCreationForm):
     class Meta:
